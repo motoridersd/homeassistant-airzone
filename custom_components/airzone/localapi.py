@@ -171,7 +171,7 @@ class LocalAPIMachine(ClimateEntity):
 
     
     @property
-    def supported_features(self) -> ClimateEntityFeature:
+     def supported_features(self):
         """Return the list of supported features."""
         return LOCALAPI_MACHINE_SUPPORT_FLAGS 
 
