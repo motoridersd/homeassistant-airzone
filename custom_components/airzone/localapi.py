@@ -7,7 +7,7 @@ from homeassistant.components.climate import (
     HVACAction,
     HVACMode,
 )
-from homeassistant.const import ATTR_TEMPERATURE, TEMP_CELSIUS, TEMP_FAHRENHEIT
+from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
 
 from .const import (
     LOCALAPI_HVAC_MODE_MAP,
@@ -39,9 +39,9 @@ class LocalAPIZone(ClimateEntity):
         self._airzone_zone = value
         self._name = value.name
         from airzone.localapi import TempUnits
-        self._units = TEMP_CELSIUS
+        self._units = UnitOfTemperature.CELSIUS
         if value.units == TempUnits.FAHRENHEIT:
-            self._units = TEMP_FAHRENHEIT        
+            self._units = UnitOfTemperature.FAHRENHEIT        
 
     @property
     def name(self):
@@ -165,13 +165,13 @@ class LocalAPIMachine(ClimateEntity):
     def airzone_machine(self, value):
         self._airzone_machine = value        
         from airzone.localapi import TempUnits
-        self._units = TEMP_CELSIUS
+        self._units = UnitOfTemperature.CELSIUS
         if value.units == TempUnits.FAHRENHEIT:
-            self._units = TEMP_FAHRENHEIT
+            self._units = UnitOfTemperature.FAHRENHEIT
 
     
     @property
-     def supported_features(self):
+    def supported_features(self):
         """Return the list of supported features."""
         return LOCALAPI_MACHINE_SUPPORT_FLAGS 
 
@@ -262,9 +262,9 @@ class LocalAPIOneZone(ClimateEntity):
     def airzone_machine(self, value):
         self._airzone_machine = value        
         from airzone.localapi import TempUnits
-        self._units = TEMP_CELSIUS
+        self._units = UnitOfTemperature.CELSIUS
         if value.units == TempUnits.FAHRENHEIT:
-            self._units = TEMP_FAHRENHEIT
+            self._units = UnitOfTemperature.FAHRENHEIT
         # We can access directly to the only zone available        
         temp_z = [z for z in value.zones]       
         self.airzone_zone = temp_z[0]
